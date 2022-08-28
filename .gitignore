@@ -3,6 +3,17 @@ __pycache__/
 *.py[cod]
 *$py.class
 
+# System
+.DS_Store
+
+credentials/
+.idea/
+.DS_Store
+.DS_Store?
+tests/.pytest_cache/
+tests/htmlcov/
+tests/.coverage
+
 # C extensions
 *.so
 
