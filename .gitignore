@@ -6,7 +6,6 @@ __pycache__/
 # System
 .DS_Store
 
-credentials/
 .idea/
 .DS_Store
 .DS_Store?
