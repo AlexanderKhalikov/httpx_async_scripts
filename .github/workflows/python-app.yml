@@ -5,7 +5,7 @@ on:
     branches: [main]
 
 jobs:
-  test:
+  RunTests:
     runs-on: ubuntu-latest
     steps:
       #----------------------------------------------
@@ -56,9 +56,10 @@ jobs:
       #----------------------------------------------
       #              run test suite
       #----------------------------------------------
-      - run: cd tests && poetry run pytest
+      # - run: cd tests && poetry run pytest
       - name: Run tests
         run: |
           source .venv/bin/activate
-          pytest tests/
+          cd tests
+          pytest
           coverage report
