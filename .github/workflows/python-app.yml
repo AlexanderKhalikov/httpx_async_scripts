@@ -46,11 +46,8 @@ jobs:
       # install dependencies if cache does not exist
       #----------------------------------------------
       - name: Install dependencies
-        run: |
-          python -m pip install --upgrade pip
-          pip install flake8 pytest pytest-cov
-          if: steps.cached-poetry-dependencies.outputs.cache-hit != 'true'
-          run: poetry install
+        if: steps.cached-poetry-dependencies.outputs.cache-hit != 'true'
+        run: poetry install
       #----------------------------------------------
       # install your root project, if required
       #----------------------------------------------
