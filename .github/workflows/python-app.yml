@@ -60,12 +60,6 @@ jobs:
       
       - name: Run tests
         run: |
-          source .venv/bin/activate
           cd tests
-          pytest
-      - name: Pytest Coverage Comment
-        uses: MishaKav/pytest-coverage-comment@v1.1.32
-        with:
-          pytest-coverage-path: ./pytest-coverage.txt
-          junitxml-path: ./pytest.xml
-
+          run: |
+          pytest --exitfirst --verbose --failed-first --cov=. --cov-report html
