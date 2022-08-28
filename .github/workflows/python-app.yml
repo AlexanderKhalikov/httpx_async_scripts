@@ -1,4 +1,4 @@
-name: test
+name: Test Python Scripts
 
 on:
   push:
@@ -56,7 +56,7 @@ jobs:
       #----------------------------------------------
       #              run test suite
       #----------------------------------------------
-      - run: poetry run pytest tests/
+      - run: cd tests && poetry run pytest
       - name: Run tests
         run: |
           source .venv/bin/activate
