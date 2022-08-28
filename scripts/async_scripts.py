@@ -43,4 +43,5 @@ async def main():
 
 
 if __name__ == '__main__':
-    asyncio.run(main())     # pragma: no cover
+    print(os.path.realpath('credentials/configTest.yaml'))
+    # asyncio.run(main())     # pragma: no cover
