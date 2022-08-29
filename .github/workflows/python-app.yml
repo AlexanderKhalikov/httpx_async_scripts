@@ -56,11 +56,12 @@ jobs:
       #----------------------------------------------
       #              run test suite
       #----------------------------------------------
-      # - run: cd tests && poetry run pytest
       
       - name: Run tests
         run: |
           source .venv/bin/activate
+          pip install genbadge[all]
           cd tests
           pytest --exitfirst --verbose --failed-first
           pytest --cov
+          coverage-badge
