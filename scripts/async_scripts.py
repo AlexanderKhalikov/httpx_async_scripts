@@ -33,7 +33,7 @@ async def post_archive(url: str, path_to_archive: str) -> None:
     # Upload archive to server
     headers = {'Content-Type': 'application/octet-stream'}
     async with httpx.AsyncClient() as client:
-        await client.post(url, content=b'Hello, world', headers=headers)
+        await client.post(url, content=path_to_archive, headers=headers)
 
 
 async def main():
@@ -43,5 +43,4 @@ async def main():
 
 
 if __name__ == '__main__':
-    print(os.path.realpath('credentials/configTest.yaml'))
-    # asyncio.run(main())     # pragma: no cover
+    asyncio.run(main())     # pragma: no cover
