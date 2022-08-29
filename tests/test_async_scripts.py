@@ -1,4 +1,9 @@
+from pathlib import Path
+
 import pytest
+from pytest_httpx import HTTPXMock
+import httpx
+
 from scripts.async_scripts import *
 
 
@@ -23,3 +28,16 @@ async def test_get_archive_open_for_write(mocker_open_for_write):
 
 def test_create_dir(tmp_path):
     create_dir(tmp_path)
+
+
+@pytest.mark.asyncio
+async def test_post_archive(httpx_mock: HTTPXMock, tmp_path):
+    httpx_mock.add_response(method="POST")
+    CONTENT = b'Hello, world'
+
+    tmp_dir = tmp_path / "sub"
+    tmp_dir.mkdir()
+    tmp_file = tmp_dir / Path('my_binary_file')
+    tmp_file.write_bytes(CONTENT)
+
+    await post_archive(url="https://test_url", path_to_archive=str(tmp_file))
