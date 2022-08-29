@@ -3,13 +3,13 @@ from scripts.async_scripts import *
 
 
 @pytest.mark.asyncio
-async def test_create_user(async_client):
+async def test_status_code(async_client):
     response = await async_client.get(URL)
     assert response.status_code == 200
 
 
 @pytest.mark.asyncio
-async def test_something_else(tmp_path):
+async def test_download_archive(tmp_path):
     await get_archive(url=URL, write_to=str(tmp_path))
 
     for i in tmp_path.iterdir():
