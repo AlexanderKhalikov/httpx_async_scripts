@@ -60,9 +60,6 @@ jobs:
       - name: Run tests
         run: |
           source .venv/bin/activate
-          pip install genbadge[all]
           cd tests
           pytest --exitfirst --verbose --failed-first
           pytest --cov
-          python3 Coverage.py
-          coverage-badge
