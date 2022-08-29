@@ -1,9 +1,6 @@
 from pathlib import Path
-
 import pytest
 from pytest_httpx import HTTPXMock
-import httpx
-
 from scripts.async_scripts import *
 
 
