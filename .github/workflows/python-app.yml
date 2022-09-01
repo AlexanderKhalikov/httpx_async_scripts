@@ -2,10 +2,12 @@ name: PyTest
 
 on:
   push:
-    branches: [master]
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
 
 jobs:
-  RunTests:
+  Setup_Environment:
     runs-on: ubuntu-latest
     steps:
       #----------------------------------------------
@@ -56,10 +58,29 @@ jobs:
       #----------------------------------------------
       #              run test suite
       #----------------------------------------------
-      
       - name: Run tests
         run: |
           source .venv/bin/activate
           cd tests
           pytest --exitfirst --verbose --failed-first
           pytest --cov
+      - name: Pytest coverage comment
+        uses: MishaKav/pytest-coverage-comment@main
+        with:
+          pytest-coverage-path: ./pytest-coverage.txt
+          junitxml-path: ./pytest.xml
+      - name: Check the output coverage
+        run: |
+          echo "Coverage Percantage - ${{ steps.coverageComment.outputs.coverage }}"
+          echo "Coverage Color - ${{ steps.coverageComment.outputs.color }}"
+          echo "Coverage Html - ${{ steps.coverageComment.outputs.coverageHtml }}"
+          echo "Summary Report - ${{ steps.coverageComment.outputs.summaryReport }}"
+
+          echo "Coverage Warnings - ${{ steps.coverageComment.outputs.warnings }}"
+
+          echo "Coverage Errors - ${{ steps.coverageComment.outputs.errors }}"
+          echo "Coverage Failures - ${{ steps.coverageComment.outputs.failures }}"
+          echo "Coverage Skipped - ${{ steps.coverageComment.outputs.skipped }}"
+          echo "Coverage Tests - ${{ steps.coverageComment.outputs.tests }}"
+          echo "Coverage Time - ${{ steps.coverageComment.outputs.time }}"
+          echo "Not Success Test Info - ${{ steps.coverageComment.outputs.notSuccessTestInfo }}"
