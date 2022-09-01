@@ -16,5 +16,3 @@ def mocker_open_for_write(mocker):
     mocked_etc_release_data = mocker.mock_open(read_data="some data")
     builtin_open = "__builtin__.open" if PY2 else "builtins.open"
     mocker.patch(builtin_open, mocked_etc_release_data)
-
-

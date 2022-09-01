@@ -2,7 +2,7 @@ import httpx
 import asyncio
 import yaml
 import os
-
+from httpx_auth import Basic
 
 with open(os.path.realpath('../credentials/configTest.yaml')) as conf_file:
     config = yaml.load(conf_file, Loader=yaml.FullLoader)
@@ -10,9 +10,14 @@ with open(os.path.realpath('../credentials/configTest.yaml')) as conf_file:
 URL = config['jar_url']
 FOLDER_PATH = config['folder_path']
 FILE_NAME = config['file_name']
+auth = Basic(username=config['username'], password=config['password'])
 
 
-def create_dir(path_to_folder: str = FOLDER_PATH):
+def create_dir(path_to_folder: str = FOLDER_PATH) -> None:
+    """
+    :param: path_to_folder: str
+    :return: None
+    """
     try:
         os.mkdir(path_to_folder)
         # print(f"Directory {path_to_folder} created")
@@ -22,6 +27,11 @@ def create_dir(path_to_folder: str = FOLDER_PATH):
 
 async def get_archive(url: str, write_to: str = FOLDER_PATH) -> None:
     # Downloading archive file in byte chunks
+    """
+    :param url: str
+    :param write_to: str
+    :return: None
+    """
     with open(write_to + FILE_NAME, 'wb') as f:
         async with httpx.AsyncClient() as client:
             async with client.stream('GET', url) as r:
@@ -31,6 +41,11 @@ async def get_archive(url: str, write_to: str = FOLDER_PATH) -> None:
 
 async def post_archive(url: str, path_to_archive: str) -> None:
     # Upload archive to server
+    """
+    :param url: str
+    :param path_to_archive: str
+    :return: None
+    """
     headers = {'Content-Type': 'application/octet-stream'}
     async with httpx.AsyncClient() as client:
         await client.post(url, content=path_to_archive, headers=headers)
