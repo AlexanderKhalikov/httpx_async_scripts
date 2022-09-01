@@ -7,7 +7,7 @@ on:
     branches: [ master ]
 
 jobs:
-  Setup_Environment:
+  Auto_Tests:
     runs-on: ubuntu-latest
     steps:
       #----------------------------------------------
@@ -64,23 +64,8 @@ jobs:
           cd tests
           pytest --exitfirst --verbose --failed-first
           pytest --cov
-      - name: Pytest coverage comment
-        uses: MishaKav/pytest-coverage-comment@main
-        with:
-          pytest-coverage-path: ./pytest-coverage.txt
-          junitxml-path: ./pytest.xml
-      - name: Check the output coverage
+      - name: Build coverage file
         run: |
-          echo "Coverage Percantage - ${{ steps.coverageComment.outputs.coverage }}"
-          echo "Coverage Color - ${{ steps.coverageComment.outputs.color }}"
-          echo "Coverage Html - ${{ steps.coverageComment.outputs.coverageHtml }}"
-          echo "Summary Report - ${{ steps.coverageComment.outputs.summaryReport }}"
-
-          echo "Coverage Warnings - ${{ steps.coverageComment.outputs.warnings }}"
-
-          echo "Coverage Errors - ${{ steps.coverageComment.outputs.errors }}"
-          echo "Coverage Failures - ${{ steps.coverageComment.outputs.failures }}"
-          echo "Coverage Skipped - ${{ steps.coverageComment.outputs.skipped }}"
-          echo "Coverage Tests - ${{ steps.coverageComment.outputs.tests }}"
-          echo "Coverage Time - ${{ steps.coverageComment.outputs.time }}"
-          echo "Not Success Test Info - ${{ steps.coverageComment.outputs.notSuccessTestInfo }}"
+          pytest --cache-clear --cov=app test/ > pytest-coverage.txt
+      - name: Comment coverage
+        uses: coroo/pytest-coverage-commentator@v1.0.2
