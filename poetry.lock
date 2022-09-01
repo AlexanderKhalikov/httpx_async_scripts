@@ -136,6 +136,20 @@ http2 = ["h2 (>=3,<5)"]
 socks = ["socksio (>=1.0.0,<2.0.0)"]
 
 [[package]]
+name = "httpx-auth"
+version = "0.15.0"
+description = "Authentication for HTTPX"
+category = "main"
+optional = false
+python-versions = ">=3.7"
+
+[package.dependencies]
+httpx = ">=0.23.0,<0.24.0"
+
+[package.extras]
+testing = ["pyjwt (>=2.0.0,<3.0.0)", "pytest-cov (>=3.0.0,<4.0.0)", "pytest-httpx (>=0.21.0,<0.22.0)"]
+
+[[package]]
 name = "idna"
 version = "3.3"
 description = "Internationalized Domain Names in Applications (IDNA)"
@@ -365,7 +379,7 @@ socks = ["PySocks (>=1.5.6,!=1.5.7,<2.0)"]
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.10"
-content-hash = "07b215e35e6b5448a6e748b4e5debd90f59891a9204e7677ddda8295b13ef474"
+content-hash = "0a0ab633554c5664a0367dd1e3727fb2298fc03c2920b2d0f7f4117b2d45820f"
 
 [metadata.files]
 anyio = [
@@ -458,6 +472,10 @@ httpcore = [
 httpx = [
     {file = "httpx-0.23.0-py3-none-any.whl", hash = "sha256:42974f577483e1e932c3cdc3cd2303e883cbfba17fe228b0f63589764d7b9c4b"},
     {file = "httpx-0.23.0.tar.gz", hash = "sha256:f28eac771ec9eb4866d3fb4ab65abd42d38c424739e80c08d8d20570de60b0ef"},
+]
+httpx-auth = [
+    {file = "httpx_auth-0.15.0-py3-none-any.whl", hash = "sha256:ca252bffcfb1d4dbfdf74b69d4e6a06e387bca3dd896ef9c5ddd85787b56652b"},
+    {file = "httpx_auth-0.15.0.tar.gz", hash = "sha256:52e649f7e4dd1486bd040ee70c6bd00e26cb987a68c2aeffc76a38ac5931cc61"},
 ]
 idna = [
     {file = "idna-3.3-py3-none-any.whl", hash = "sha256:84d9dd047ffa80596e0f246e2eab0b391788b0503584e8945f2368256d2735ff"},
