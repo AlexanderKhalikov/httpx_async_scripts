@@ -2,7 +2,7 @@ name: PyTest
 
 on:
   push:
-    branches: [main]
+    branches: [master]
 
 jobs:
   RunTests:

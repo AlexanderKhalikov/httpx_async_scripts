@@ -10,7 +10,9 @@ with open(os.path.realpath('../credentials/configTest.yaml')) as conf_file:
 URL = config['jar_url']
 FOLDER_PATH = config['folder_path']
 FILE_NAME = config['file_name']
-auth = Basic(username=config['username'], password=config['password'])
+
+auth = Basic(username=config['username'],
+             password=config['password'])
 
 
 def create_dir(path_to_folder: str = FOLDER_PATH) -> None:
@@ -31,6 +33,7 @@ async def get_archive(url: str, write_to: str = FOLDER_PATH) -> None:
     :param url: str
     :param write_to: str
     :return: None
+        Add auth if required
     """
     with open(write_to + FILE_NAME, 'wb') as f:
         async with httpx.AsyncClient() as client:
@@ -45,10 +48,21 @@ async def post_archive(url: str, path_to_archive: str) -> None:
     :param url: str
     :param path_to_archive: str
     :return: None
+        Add auth if required
     """
     headers = {'Content-Type': 'application/octet-stream'}
     async with httpx.AsyncClient() as client:
-        await client.post(url, content=path_to_archive, headers=headers)
+        await client.post(url=url, content=path_to_archive, headers=headers)
+
+
+async def delete_archive(url: str) -> None:
+    """
+    :param url: str
+    :return: None
+        Add auth if required
+    """
+    async with httpx.AsyncClient() as client:
+        await client.delete(url=url)
 
 
 async def main():

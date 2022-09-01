@@ -38,3 +38,9 @@ async def test_post_archive(httpx_mock: HTTPXMock, tmp_path):
     tmp_file.write_bytes(CONTENT)
 
     await post_archive(url="https://test_url", path_to_archive=str(tmp_file))
+
+
+@pytest.mark.asyncio
+async def test_delete_archive(httpx_mock: HTTPXMock):
+    httpx_mock.add_response(method="DELETE")
+    await delete_archive(url="https://test_url")
